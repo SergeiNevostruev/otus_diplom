@@ -27,7 +27,7 @@ DEFAULT_ARGS = {
 
 with DAG(
         "rss_request",
-        # schedule_interval='*/10 * * * *',
+        schedule_interval='*/15 * * * *',
         default_args=DEFAULT_ARGS,
         max_active_runs=1,
         catchup=False,
@@ -52,7 +52,7 @@ with DAG(
         """
         news_url = postgreshook.get_records(sql=sql_news_url)
         postgreshook.run("truncate stg.news;")
-        # print("news_url ------------->", news_url[0][1], type(news_url[0][1]))
+
         for channel_id, url, source_id, source_name in news_url:
             response = requests.get(url)
             feed = feedparser.parse(response.text)
@@ -88,7 +88,7 @@ with DAG(
 
         postgreshook = PostgresHook(postgres)
         sql_rows = """
-            SELECT id, title
+            SELECT id, title, summary
             FROM ds.news dns
             where dns.id not in (select id from ds.news_processed_entity npe)
             ;
@@ -108,8 +108,8 @@ with DAG(
         cur = conn_psycopg2.cursor()
 
         for rows_new in rows_news:
-            id_row, title_row = rows_new
-            doc = nlp(title_row)
+            id_row, title_row, summary_row = rows_new
+            doc = nlp(summary_row)
             for ent in doc.ents:
                 entity_name, entity_label = ent.lemma_, ent.label_
                 for doc_topic in docs_topic:

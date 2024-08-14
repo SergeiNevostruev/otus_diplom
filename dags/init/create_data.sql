@@ -11,13 +11,14 @@ VALUES
 ('http://tass.ru/rss/v2.xml', 1),
 ('http://news.rambler.ru/rss/incidents/', 1),
 ('http://news.rambler.ru/rss/world/', 1),
-('http://www.ixbt.com/export/utf8/hardnews.rss', 1)
+('http://www.ixbt.com/export/utf8/hardnews.rss', 1),
+('http://russian.rt.com/rss/', 1)
 ;
 
 INSERT INTO sys.find_topics
 (topic_name, summary_tags)
 VALUES
 ('Россия', 'Россия Росийская федерация'),
-('Технологии', 'ИТ цифровизация программирование исскуственный интеллект'),
-('Россети', 'Электрические сети электроснабжение сетевая компания Россети')
+('Технологии', 'Россия ИТ цифровизация программирование исскуственный интеллект'),
+('Россети', 'россети электросети электрические сети электроснабжение сетевая компания Россети электричество')
 ;
