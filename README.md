@@ -17,3 +17,5 @@ docker compose up
 на проде перед запуском поменять env_dwh
 
 Создать подключение в Airflow к postgres
+
+в папке superset_files лежит дашборд, его необходимо загрузить в superset
